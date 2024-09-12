@@ -6,7 +6,22 @@ from requests import Session
 from ..auth import SubstackAuth
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36"
+    "authority": "substack.com",
+    "scheme": "https",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "accept-language": "en-US,en;q=0.9",
+    "cache-control": "max-age=0",
+    "dnt": "1",
+    "origin": "https://substack.com",
+    "priority": "u=1, i",
+    "sec-ch-ua": '"Not;A=Brand";v="24", "Chromium";v="128"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"macOS"',
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
 }
 
 
@@ -34,6 +49,7 @@ class HTTPClient:
             headers.update(self._auth.get_auth_header())
 
         response = self._session.request(method.upper(), url, headers=headers, params=params, json=data)
+        logger.info(f"Response: {response.status_code} | {response} | {response.text}")
         response.raise_for_status()
         if raw_response:
             return response

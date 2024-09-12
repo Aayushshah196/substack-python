@@ -1,7 +1,10 @@
+import json
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 from pydantic import BaseModel, Field, HttpUrl
+
+from substack.md_to_json.structures import Document
 
 
 class Publication(BaseModel):
@@ -33,7 +36,7 @@ class Post(BaseModel):
     slug: str
     post_date: datetime
     audience: str
-    canonical_url: HttpUrl
+    canonical_url: Optional[Union[str, HttpUrl]]
     subtitle: Optional[str]
     description: Optional[str]
     wordcount: int
@@ -83,3 +86,25 @@ class Post(BaseModel):
         if self.publication_subdomain:
             return f"https://{self.publication_subdomain}.substack.com"
         return None
+
+
+class DraftByline(BaseModel):
+    id: int
+    is_guest: bool
+
+
+class Draft(BaseModel):
+    type: str = "newsletter"
+    audience: str = "everyone"
+    draft_title: str = Field(..., alias="title")
+    draft_subtitle: str = Field("", alias="subtitle")
+    draft_body: Document = Field(..., default_factory=lambda: Document.create_empty_document())
+    draft_bylines: List[DraftByline] = list()
+    draft_section_id: Optional[str] = None
+    draft_video_upload_id: Optional[None] = None
+    section_chosen: bool = False
+
+    def to_dict(self, body_json_dump=True):
+        data = self.model_dump(exclude_none=True)
+        data["draft_body"] = json.dumps(data["draft_body"]) if body_json_dump else data["draft_body"]
+        return data

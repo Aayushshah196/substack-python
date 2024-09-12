@@ -198,19 +198,3 @@ class PostsAPI(BaseAPI):
         url = self.build_url(self.base_url(), ["post", post_id, "tag"])
         response = self._http_client.request("GET", url, authenticated=True)
         return response
-
-    # @login_required
-    # def get_public_posts(self, user_id: str, limit=10, offset=0, **kwargs) -> dict:
-    #     """
-    #     Get public posts.
-
-    #     Args:
-    #         **kwargs:
-    #     """
-    #     # https://substack.com/api/v1/profile/posts?profile_user_id=257019112&offset=0&limit=13
-    #     url = self.build_url(self._site_base_url, ["posts"])
-    #     query_params = {"profile_user_id": user_id, "limit": limit, "offset": offset}
-    #     response = self._http_client.request(
-    #         "GET", url, authenticated=False, params=query_params
-    #     )
-    #     return response

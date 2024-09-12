@@ -1,7 +1,10 @@
+from typing import Any, Dict
+
 from .api.posts import PostsAPI
 from .api.publication import PublicationsAPI
 from .api.user import UserAPI
 from .auth import SubstackAuth
+from .structures import Draft
 from .utils.http import HTTPClient
 
 
@@ -26,3 +29,13 @@ class SubstackClient:
 
     def __repr__(self) -> str:
         return f"SubstackClient(substack_domain={self.substack_domain})"
+
+    def create_post(self, draft: Draft) -> Dict[str, Any]:
+        draft_res = self.posts.create_post(draft)
+        if not draft_res:
+            raise Exception("Failed to create post draft")
+        draft_id = draft_res.get("id")
+        if not draft_id:
+            raise Exception("Illegal draft id")
+        post_res = self.posts.publish_draft(draft_id)
+        return post_res
