@@ -4,4 +4,4 @@ __version__ = VERSION
 
 
 def hello() -> str:
-    return f"Welcome to substack-python - {VERSION_NAME} : {__version__}!"
+    return f"Welcome to substack-python - {VERSION_NAME} : {VERSION}!"
