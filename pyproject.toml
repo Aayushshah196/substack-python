@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "substack-python"
+version = "0.1.0"
+repository = "https://github.com/Aayushshah196/substack-python"
+homepage = "https://github.com/Aayushshah196/substack-python"
+description = "An unofficial Python Package to interact with Substack."
+authors = ["Aayushshah196 <aayushshah.kanu@docsumo.com>"]
+keywords = ["substack", "substack-python", "substack-api", "substack-wrapper", "substack automation"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12.3"
+beautifulsoup4 = "^4.12.3"
+markdown = "^3.7"
+pydantic = "^2.9.1"
+requests = "^2.32.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.8.0"
+isort = "^5.13.2"
+pre-commit = "^3.8.0"
+pytest = "^8.3.3"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "code"
+path = "src/substack/version.py"
