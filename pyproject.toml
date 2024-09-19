@@ -1,6 +1,6 @@
-[tool.poetry]
+[project]
 name = "substack-python"
-version = "0.1.0"
+dynamic = ["version"]
 repository = "https://github.com/Aayushshah196/substack-python"
 homepage = "https://github.com/Aayushshah196/substack-python"
 description = "An unofficial Python Package to interact with Substack."
@@ -9,18 +9,26 @@ keywords = ["substack", "substack-python", "substack-api", "substack-wrapper", "
 license = "MIT License"
 readme = "README.md"
 
-[tool.poetry.dependencies]
-python = "3.12.3"
-beautifulsoup4 = "^4.12.3"
-markdown = "^3.7"
-pydantic = "^2.9.1"
-requests = "^2.32.3"
+dependencies = [
+    "beautifulsoup4>=4.12.3",
+    "markdown>=3.7",
+    "requests==2.26.0",
+    "loguru==0.6.0",
+    "pydantic==2.7.4",
+]
 
-[tool.poetry.group.dev.dependencies]
-black = "^24.8.0"
-isort = "^5.13.2"
-pre-commit = "^3.8.0"
-pytest = "^8.3.3"
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pre-commit==2.20.0",
+    "pyright==1.1.364",
+    "pytest==7.1.3",
+    "black==22.10.0",
+    "pytest-mock>=3.14.0",
+    "build>=1.2.1",
+]
+
+requires-python = ">= 3.8"
 
 [build-system]
 requires = ["hatchling"]
@@ -28,4 +36,11 @@ build-backend = "hatchling.build"
 
 [tool.hatch.version]
 source = "code"
-path = "src/substack/version.py"
+path = "src/substack/__init__.py"
+search-paths = ["src"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/substack"]
