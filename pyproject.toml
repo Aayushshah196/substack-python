@@ -4,9 +4,11 @@ dynamic = ["version"]
 repository = "https://github.com/Aayushshah196/substack-python"
 homepage = "https://github.com/Aayushshah196/substack-python"
 description = "An unofficial Python Package to interact with Substack."
-authors = ["Aayushshah196 <aayushshah.kanu@docsumo.com>"]
+authors = [
+    { name = "Aayushshah196", email = "aayushshah196@gmail.com" }
+]
 keywords = ["substack", "substack-python", "substack-api", "substack-wrapper", "substack automation"]
-license = "MIT License"
+license = {text = "MIT License"}
 readme = "README.md"
 
 dependencies = [
